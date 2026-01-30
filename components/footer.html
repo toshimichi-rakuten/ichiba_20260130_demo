@@ -176,18 +176,18 @@
 
     /* Features Section */
     .features-section {
-      background: var(--gray-100);
-      padding: 40px;
+      background: var(--gray-50);
+      padding: 50px 80px;
       margin: 0;
       border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: none;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      max-width: 100%;
+      gap: 80px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -196,38 +196,41 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .feature-icon {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: transparent;
       border-radius: 0;
       box-shadow: none;
+      margin-bottom: 4px;
     }
 
     .feature-icon svg {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
     }
 
     .feature-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--gray-900);
-      margin-bottom: 4px;
-      line-height: 1.5;
+      margin-bottom: 0;
+      line-height: 1.6;
+      letter-spacing: 0;
     }
 
     .feature-description {
       font-size: 11px;
       color: var(--gray-700);
-      line-height: 1.7;
-      max-width: 100%;
+      line-height: 1.8;
+      max-width: 280px;
+      letter-spacing: 0;
     }
 
     /* Links Section */
