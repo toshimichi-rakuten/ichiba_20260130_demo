@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>クーポンカード - コンポーネント</title>
+
+  <!-- ECM グローバルCSS -->
+  <link rel="stylesheet" href="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.css">
+
+  <!-- ECM グローバルJS -->
+  <script src="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.js"></script>
+
+  <style>
+    :root {
+      --white: #FFF;
+      --crimson: #BF0000;
+      --orange: #FF8800;
+      --orange-dark: #E67700;
+      --gray-darker: #333;
+      --gray-900: #333;
+      --gray-700: #555;
+      --gray-500: #999;
+      --gray-300: #ddd;
+      --gray-200: #e9e9e9;
+      --gray-100: #f5f5f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, -apple-system, Roboto, Helvetica, sans-serif;
+      background: #f5f5f5;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .demo-wrapper {
+      max-width: 100%;
+      margin: 0 auto;
+      background: white;
+      padding: 32px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--crimson);
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 32px;
+    }
+
+    /* Coupon Card Styles */
+    .coupon-card {
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .coupon-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .coupon-card-inner {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* Decorative corners */
+    .coupon-card-inner::before,
+    .coupon-card-inner::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--gray-100);
+    }
+
+    .coupon-card-inner::before {
+      top: 0;
+      left: 0;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+
+    .coupon-card-inner::after {
+      top: 0;
+      right: 0;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+    }
+
+    /* Amount Section */
+    .coupon-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .coupon-value {
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      font-family: Roboto, -apple-system, Helvetica, sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .coupon-unit {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--orange);
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+    }
+
+    /* Condition Section */
+    .coupon-condition {
+      font-size: 14px;
+      color: var(--gray-900);
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Button Section */
+    .coupon-button {
+      width: 100%;
+      max-width: 400px;
+      padding: 14px 32px;
+      background: linear-gradient(180deg, var(--orange) 0%, var(--orange-dark) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .coupon-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(180deg, #FFA020 0%, #FF9000 100%);
+    }
+
+    .coupon-button:active {
+      transform: translateY(0);
+    }
+
+    .coupon-button-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Notes Section */
+    .coupon-note {
+      font-size: 12px;
+      color: var(--gray-700);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Variant: Large Size */
+    .coupon-card.size-large .coupon-value {
+      font-size: 80px;
+    }
+
+    .coupon-card.size-large .coupon-unit {
+      font-size: 36px;
+    }
+
+    /* Variant: Small Size */
+    .coupon-card.size-small {
+      max-width: 400px;
+    }
+
+    .coupon-card.size-small .coupon-card-inner {
+      padding: 24px 20px;
+    }
+
+    .coupon-card.size-small .coupon-value {
+      font-size: 48px;
+    }
+
+    .coupon-card.size-small .coupon-unit {
+      font-size: 20px;
+    }
+
+    .coupon-card.size-small .coupon-condition {
+      font-size: 13px;
+    }
+
+    .coupon-card.size-small .coupon-button {
+      font-size: 14px;
+      padding: 12px 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      .demo-wrapper {
+        padding: 24px 16px;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .coupon-card-inner {
+        padding: 24px 16px;
+      }
+
+      .coupon-value {
+        font-size: 52px;
+      }
+
+      .coupon-unit {
+        font-size: 24px;
+      }
+
+      .coupon-condition {
+        font-size: 13px;
+      }
+
+      .coupon-button {
+        font-size: 15px;
+        padding: 12px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="demo-wrapper">
+    <h2 class="demo-title">クーポンカード - バリエーション</h2>
+    
+    <div class="demo-grid">
+      <!-- Standard Size -->
+      <div>
+        <h3 style="font-size: 14px; color: #999; margin-bottom: 16px; text-align: center;">標準サイズ</h3>
+        <div class="coupon-card">
+          <div class="coupon-card-inner">
+            <div class="coupon-amount">
+              <span class="coupon-value">300</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              20,000円(税込)以上のご購入で利用可
+            </p>
+
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H17C18.1046 19 19 18.1046 19 17V3C19 1.89543 18.1046 1 17 1Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9L10 13L18 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              クーポンを獲得する
+            </button>
+
+            <p class="coupon-note">
+              ※先着20,000回まで
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Large Size -->
+      <div>
+        <h3 style="font-size: 14px; color: #999; margin-bottom: 16px; text-align: center;">大きいサイズ</h3>
+        <div class="coupon-card size-large">
+          <div class="coupon-card-inner">
+            <div class="coupon-amount">
+              <span class="coupon-value">500</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              30,000円(税込)以上のご購入で利用可
+            </p>
+
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H17C18.1046 19 19 18.1046 19 17V3C19 1.89543 18.1046 1 17 1Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9L10 13L18 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              クーポンを獲得する
+            </button>
+
+            <p class="coupon-note">
+              ※先着10,000回まで
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small Size -->
+      <div>
+        <h3 style="font-size: 14px; color: #999; margin-bottom: 16px; text-align: center;">小さいサイズ</h3>
+        <div class="coupon-card size-small">
+          <div class="coupon-card-inner">
+            <div class="coupon-amount">
+              <span class="coupon-value">100</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              10,000円(税込)以上のご購入で利用可
+            </p>
+
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 1H3C1.89543 1 1 1.89543 1 3V17C1 18.1046 1.89543 19 3 19H17C18.1046 19 19 18.1046 19 17V3C19 1.89543 18.1046 1 17 1Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9L10 13L18 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              クーポンを獲得する
+            </button>
+
+            <p class="coupon-note">
+              ※先着5,000回まで
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
