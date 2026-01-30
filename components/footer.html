@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽天市場フッター - コンポーネント</title>
+
+  <!-- ECM グローバルCSS -->
+  <link rel="stylesheet" href="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.css">
+
+  <!-- ECM グローバルJS -->
+  <script src="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.js"></script>
+
+  <style>
+    :root {
+      --white: #FFF;
+      --crimson: #BF0000;
+      --gray-darker: #333;
+      --gray-900: #333;
+      --gray-700: #555;
+      --gray-500: #999;
+      --gray-300: #ddd;
+      --gray-200: #e9e9e9;
+      --gray-100: #f5f5f5;
+      --gray-50: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, -apple-system, Roboto, Helvetica, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .demo-wrapper {
+      max-width: 100%;
+      margin: 0 auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--crimson);
+    }
+
+    /* Footer Styles */
+    .rakuten-footer {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Tab Navigation */
+    .footer-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .footer-tab {
+      padding: 16px 32px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-700);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .footer-tab.active {
+      color: var(--crimson);
+      border-bottom-color: var(--crimson);
+      background: var(--white);
+      font-weight: 600;
+    }
+
+    .footer-tab:hover:not(.active) {
+      color: var(--gray-900);
+      background: rgba(191, 0, 0, 0.05);
+    }
+
+    /* Categories Section */
+    .footer-content {
+      padding: 40px 24px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px 24px;
+      margin-bottom: 48px;
+    }
+
+    .category-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .category-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .category-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .category-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 28px;
+    }
+
+    .category-link {
+      font-size: 13px;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: color 0.2s;
+      line-height: 1.5;
+    }
+
+    .category-link:hover {
+      color: var(--crimson);
+      text-decoration: underline;
+    }
+
+    .show-more {
+      font-size: 13px;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .show-more:hover {
+      color: var(--crimson);
+    }
+
+    /* Features Section */
+    .features-section {
+      background: var(--gray-50);
+      padding: 48px 24px;
+      margin: 0 -24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .feature-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .feature-description {
+      font-size: 12px;
+      color: var(--gray-700);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    /* Links Section */
+    .links-section {
+      padding: 40px 24px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px 24px;
+      margin-bottom: 32px;
+    }
+
+    .links-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .links-column-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: color 0.2s;
+      line-height: 1.6;
+    }
+
+    .footer-link:hover {
+      color: var(--crimson);
+      text-decoration: underline;
+    }
+
+    /* Bottom Section */
+    .footer-bottom {
+      padding: 32px 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .legal-link {
+      font-size: 11px;
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .legal-link:hover {
+      color: var(--crimson);
+    }
+
+    .footer-logo {
+      margin: 16px 0;
+    }
+
+    .footer-copyright {
+      font-size: 11px;
+      color: var(--gray-500);
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .footer-tab {
+        padding: 12px 20px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .footer-content {
+        padding: 24px 16px;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+      }
+
+      .footer-legal-links {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="demo-wrapper">
+    <h2 class="demo-title">楽天市場 共通フッター</h2>
+    
+    <footer class="rakuten-footer">
+      <!-- Tab Navigation -->
+      <div class="footer-tabs">
+        <button class="footer-tab">特集・サービス</button>
+        <button class="footer-tab active">ジャンル</button>
+      </div>
+
+      <!-- Categories Section -->
+      <div class="footer-content">
+        <div class="categories-grid">
+          <!-- ファッション -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 21V10H8V21H16ZM17 7L12 2L7 7V8H17V7ZM19 9H5V22C5 22.55 5.45 23 6 23H18C18.55 23 19 22.55 19 22V9Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">ファッション</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">レディースファッション</a>
+              <a href="#" class="category-link">メンズファッション</a>
+              <a href="#" class="category-link">キッズ・ベビーファッション</a>
+              <a href="#" class="category-link">バッグ・小物・ブランド雑貨</a>
+              <a href="#" class="category-link">靴</a>
+              <button class="show-more">さらに表示 ▼</button>
+            </div>
+          </div>
+
+          <!-- グルメ・飲料 -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">グルメ・飲料</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">食品</a>
+              <a href="#" class="category-link">スイーツ・お菓子</a>
+              <a href="#" class="category-link">水・ソフトドリンク</a>
+              <a href="#" class="category-link">ビール・洋酒</a>
+              <a href="#" class="category-link">日本酒・焼酎</a>
+              <button class="show-more">さらに表示 ▼</button>
+            </div>
+          </div>
+
+          <!-- 日用品・ヘルスケア -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM13 17.5H11V13H6.5V11H11V6.5H13V11H17.5V13H13V17.5Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">日用品・ヘルスケア</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">日用雑貨・文房具・手芸</a>
+              <a href="#" class="category-link">医薬品・コンタクト・介護</a>
+              <a href="#" class="category-link">ダイエット・健康</a>
+            </div>
+          </div>
+
+          <!-- コスメ・ヘアケア -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C11.5 2 11 2.19 10.59 2.59L2.59 10.59C1.8 11.37 1.8 12.63 2.59 13.41L10.59 21.41C11.37 22.2 12.63 22.2 13.41 21.41L21.41 13.41C22.2 12.63 22.2 11.37 21.41 10.59L13.41 2.59C13 2.19 12.5 2 12 2Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">コスメ・ヘアケア</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">美容・コスメ・香水</a>
+            </div>
+          </div>
+
+          <!-- ベビー・キッズ -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">ベビー・キッズ</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">キッズ・ベビー・マタニティ</a>
+              <a href="#" class="category-link">おもちゃ</a>
+            </div>
+          </div>
+
+          <!-- 家電 -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 3H3C1.9 3 1 3.9 1 5V17C1 18.1 1.9 19 3 19H8V21H16V19H21C22.1 19 23 18.1 23 17V5C23 3.9 22.1 3 21 3ZM21 17H3V5H21V17Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">家電</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">家電</a>
+              <a href="#" class="category-link">パソコン・周辺機器</a>
+              <a href="#" class="category-link">TV・オーディオ・カメラ</a>
+              <a href="#" class="category-link">タブレットPC・スマートフォン</a>
+            </div>
+          </div>
+
+          <!-- スポーツ・アウトドア -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.49 5.48C14.3 5.79 15.15 6 16 6C19.31 6 22 3.31 22 0H20C20 2.21 18.21 4 16 4C15.42 4 14.88 3.84 14.42 3.58L13.49 5.48ZM5.47 3.92C4.02 4.96 3 6.58 3 8.5C3 11.26 5.24 13.5 8 13.5C9.42 13.5 10.66 12.85 11.53 11.83L5.47 3.92ZM8.02 20L12 18L15.98 20L14.5 15.5L18 12.5H13.5L12 8L10.5 12.5H6L9.5 15.5L8.02 20Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">スポーツ・アウトドア</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">スポーツ・アウトドア</a>
+              <a href="#" class="category-link">ゴルフ用品</a>
+            </div>
+          </div>
+
+          <!-- 車体・オートバイ -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H15V3H9V5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.5 16C5.67 16 5 15.33 5 14.5S5.67 13 6.5 13S8 13.67 8 14.5S7.33 16 6.5 16ZM17.5 16C16.67 16 16 15.33 16 14.5S16.67 13 17.5 13S19 13.67 19 14.5S18.33 16 17.5 16ZM5 11L6.5 6.5H17.5L19 11H5Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">車体・オートバイ</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">車用品・バイク用品</a>
+              <a href="#" class="category-link">車・バイク</a>
+            </div>
+          </div>
+
+          <!-- インテリア・DIY・ペット -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">インテリア・DIY・ペット</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">インテリア・収納</a>
+              <a href="#" class="category-link">キッチン用品・食器・調理器具</a>
+              <a href="#" class="category-link">ペットフード・ペット用品</a>
+              <a href="#" class="category-link">花・観葉植物</a>
+              <a href="#" class="category-link">サービス・リフォーム</a>
+              <button class="show-more">さらに表示 ▼</button>
+            </div>
+          </div>
+
+          <!-- エンタメ・ホビー -->
+          <div class="category-column">
+            <div class="category-header">
+              <svg class="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 3H3C2 3 1 4 1 5V17C1 18 2 19 3 19H8V21H16V19H21C22 19 23 18 23 17V5C23 4 22 3 21 3ZM21 17H3V5H21V17ZM16 11V9H13V6H11V9H8V11H11V14H13V11H16Z" fill="#BF0000"/>
+              </svg>
+              <h3 class="category-title">エンタメ・ホビー</h3>
+            </div>
+            <div class="category-links">
+              <a href="#" class="category-link">ゲーム</a>
+              <a href="#" class="category-link">ホビー</a>
+              <a href="#" class="category-link">CD・DVD</a>
+              <a href="#" class="category-link">楽器・音楽機材</a>
+              <a href="#" class="category-link">本・雑誌・コミック</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features-section">
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 2L4 8V15C4 22.3 9.03 29.11 16 30C22.97 29.11 28 22.3 28 15V8L16 2ZM14 22L9 17L10.41 15.59L14 19.17L21.59 11.58L23 13L14 22Z" fill="#BF0000"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-title">情報セキュリティの取り組み</div>
+              <div class="feature-description">SSL化対応している全店舗様では、クレジットカード等の情報は暗号化して送信されます。</div>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 2C8.27 2 2 8.27 2 16C2 23.73 8.27 30 16 30C23.73 30 30 23.73 30 16C30 8.27 23.73 2 16 2ZM13 23L6 16L8.41 13.59L13 18.17L23.59 7.58L26 10L13 23Z" fill="#BF0000"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-title">安心してお買い物いただくために</div>
+              <div class="feature-description">楽天店舗のガイドラインを設け、違反がないかをパトロールしています。</div>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25.33 6.67L18.67 0H4C2.53 0 1.33 1.2 1.33 2.67V29.33C1.33 30.8 2.53 32 4 32H28C29.47 32 30.67 30.8 30.67 29.33V12L25.33 6.67ZM22.67 24H9.33V20H22.67V24ZM22.67 17.33H9.33V13.33H22.67V17.33ZM17.33 14.67V2.67L28 13.33H17.33Z" fill="#BF0000"/>
+              </svg>
+            </div>
+            <div>
+              <div class="feature-title">楽天のシステムナビリティ</div>
+              <div class="feature-description">楽天は、すべての人々にとって利用しやすいサービスを目指します。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Links Section -->
+      <div class="links-section">
+        <div class="links-grid">
+          <div class="links-column">
+            <div class="links-column-title">会員情報</div>
+            <a href="#" class="footer-link">買い物かご</a>
+            <a href="#" class="footer-link">お気に入り</a>
+            <a href="#" class="footer-link">閲覧履歴</a>
+            <a href="#" class="footer-link">購入履歴</a>
+            <a href="#" class="footer-link">myクーポン</a>
+          </div>
+
+          <div class="links-column">
+            <div class="links-column-title">楽天市場トップ</div>
+            <a href="#" class="footer-link">ジャンル一覧</a>
+            <a href="#" class="footer-link">特集一覧</a>
+            <a href="#" class="footer-link">楽天市場アプリ</a>
+          </div>
+
+          <div class="links-column">
+            <div class="links-column-title">ランキング</div>
+            <a href="#" class="footer-link">レビュー</a>
+            <a href="#" class="footer-link">スーパーDEAL</a>
+          </div>
+
+          <div class="links-column">
+            <div class="links-column-title">楽天のサービス一覧</div>
+            <a href="#" class="footer-link">出店のご案内</a>
+            <a href="#" class="footer-link">ご利用ガイド</a>
+            <a href="#" class="footer-link">ヘルプ・問い合わせ</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="footer-bottom">
+        <div class="footer-legal-links">
+          <a href="#" class="legal-link">企業情報</a>
+          <a href="#" class="legal-link">個人情報保護方針</a>
+          <a href="#" class="legal-link">投資家情報</a>
+          <a href="#" class="legal-link">サステナビリティ</a>
+          <a href="#" class="legal-link">プレスリリース</a>
+          <a href="#" class="legal-link">採用情報</a>
+        </div>
+
+        <div class="footer-logo">
+          <svg width="107" height="32" viewBox="0 0 107 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M86.0512 26.8179H21.4L26.5567 32.0001L86.0512 26.8179Z" fill="#BF0000"/>
+            <path d="M27.3946 5.82991V6.60723C26.1699 5.82991 25.1386 5.37646 23.656 5.37646C19.144 5.37646 15.6633 9.52221 15.6633 14.6396C15.6633 19.757 19.0795 23.9028 23.656 23.9028C25.1386 23.9028 26.2344 23.4493 27.3946 22.672V23.4493H31.391V5.82991H27.3946ZM23.5916 19.6923C21.3356 19.6923 19.7241 17.4898 19.7241 14.7044C19.7241 11.919 21.3356 9.71655 23.5916 9.71655C25.8476 9.71655 27.3946 11.919 27.3946 14.7044C27.4591 17.4898 25.8476 19.6923 23.5916 19.6923Z" fill="#BF0000"/>
+            <path d="M59.3012 5.82996V16.1943C59.3012 18.1376 57.9476 19.7571 56.0138 19.7571C54.0801 19.7571 52.7265 18.1376 52.7265 16.1943V5.82996H48.7301V16.1943C48.7301 20.4696 51.6307 23.9028 55.8849 23.9028C57.8187 23.9028 59.3012 22.8016 59.3012 22.8016V23.4494H63.2976V5.82996H59.3012Z" fill="#BF0000"/>
+            <path d="M96.4289 23.5143V13.1499C96.4289 11.2066 97.7825 9.58716 99.7162 9.58716C101.65 9.58716 103.004 11.2066 103.004 13.1499V23.5143H107V13.1499C107 8.8746 104.099 5.44141 99.8451 5.44141C97.9114 5.44141 96.4289 6.54262 96.4289 6.54262V5.83007H92.4325V23.4495H96.4289V23.5143Z" fill="#BF0000"/>
+            <path d="M4.18976 23.5141V16.6477H7.09036L12.1825 23.4493H17.4036L11.2157 15.2226C13.1494 13.8623 14.3741 11.5951 14.3741 9.004C14.3741 4.79347 10.9578 1.42505 6.83253 1.42505H0V23.4493H4.18976V23.5141ZM4.18976 5.63558H6.89699C8.76626 5.63558 10.3133 7.19023 10.3133 9.06877C10.3133 10.9473 8.76626 12.502 6.89699 12.502H4.18976V5.63558Z" fill="#BF0000"/>
+            <path d="M73.9976 19.3036C73.6108 19.5627 73.1596 19.757 72.644 19.757C71.9994 19.757 70.7747 19.2388 70.7747 17.6194V10.0404H74.1909V5.82991H70.7747V1.42505H66.7783V5.82991H64.6512V10.0404H66.7783V17.6194C66.7783 21.5708 69.7434 23.9028 72.7084 23.9028C73.8042 23.9028 75.3512 23.5141 76.5759 22.8016L73.9976 19.3036Z" fill="#BF0000"/>
+            <path d="M41.253 14.1215L48.0855 5.82996H42.5422L37.7078 11.9838V0H33.647V23.5142H37.7078V16.2591L43.6379 23.5142H49.1813L41.253 14.1215Z" fill="#BF0000"/>
+            <path d="M83.2151 5.37646C78.5741 5.37646 75.2867 9.45744 75.2867 14.6396C75.2867 20.0809 79.412 23.9028 83.6018 23.9028C85.7289 23.9028 88.3717 23.1902 90.6277 19.9514L87.0825 17.8785C84.3753 21.8947 79.7988 19.8866 79.2831 15.8056H90.7566C91.7879 9.58699 87.7271 5.37646 83.2151 5.37646ZM86.6958 12.3724H79.541C80.3789 8.29144 85.9223 8.03234 86.6958 12.3724Z" fill="#BF0000"/>
+          </svg>
+        </div>
+
+        <div class="footer-copyright">
+          © Rakuten Group, Inc.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

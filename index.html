@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽天市場 デザインシステム</title>
+
+  <!-- ECM グローバルCSS -->
+  <link rel="stylesheet" href="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.css">
+
+  <!-- ECM グローバルJS -->
+  <script src="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.js"></script>
+
+  <style>
+    :root {
+      --crimson: #BF0000;
+      --crimson-light: #FF4444;
+      --gray-900: #333;
+      --gray-700: #555;
+      --gray-500: #999;
+      --gray-300: #ddd;
+      --gray-100: #f5f5f5;
+      --white: #fff;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, -apple-system, Roboto, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      padding: 0;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--crimson) 0%, #a00000 100%);
+      padding: 80px 24px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="white" opacity="0.05"/></svg>');
+      background-size: 50px 50px;
+      animation: slide 20s linear infinite;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(50px) translateY(50px); }
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+      font-family: Roboto, -apple-system, Helvetica, sans-serif;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: -60px auto 80px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 64px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-title-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-light) 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--white);
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-title-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.01em;
+    }
+
+    .section-description {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 300;
+    }
+
+    .section-badge {
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-light) 100%);
+      color: var(--white);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson-light) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--crimson);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-light) 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .card:hover .card-icon {
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    .card-status {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-status.ready {
+      background: rgba(191, 0, 0, 0.1);
+      color: var(--crimson);
+    }
+
+    .card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.01em;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .card-tag {
+      padding: 4px 12px;
+      background: var(--gray-100);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--gray-700);
+      font-weight: 500;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 32px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 2px dashed var(--gray-300);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .empty-state-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      opacity: 0.5;
+    }
+
+    .empty-state-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-500);
+    }
+
+    .empty-state-description {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 300;
+      max-width: 400px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      margin-top: 80px;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 300;
+    }
+
+    .footer-link {
+      color: var(--crimson);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .footer-link:hover {
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 80px;
+      }
+
+      .container {
+        margin-top: -40px;
+        padding: 0 16px;
+      }
+
+      .section {
+        margin-bottom: 48px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">楽天市場<br>デザインシステム</h1>
+      <p class="hero-subtitle">コンポーネントライブラリとページテンプレート</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">コンポーネント</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">0</div>
+          <div class="stat-label">ページ</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">レスポンシブ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- パーツセクション -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <div class="section-icon">🧩</div>
+          <div class="section-title-content">
+            <h2 class="section-title">コンポーネント</h2>
+            <p class="section-description">再利用可能なUIパーツライブラリ</p>
+          </div>
+        </div>
+        <span class="section-badge">5件</span>
+      </div>
+
+      <div class="grid">
+        <!-- ヘッダーパーツ -->
+        <a href="/components/header.html" class="card">
+          <div class="card-header">
+            <div class="card-icon">📋</div>
+            <span class="card-status ready">Ready</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">共通ヘッダー</h3>
+            <p class="card-description">楽天市場のグローバルヘッダーコンポーネント。Figmaデザインを完全再現した、検索バー、ナビゲーション、ユーザーアクション、ポイント表示を含むレスポンシブデザイン。</p>
+            <div class="card-tags">
+              <span class="card-tag">Navigation</span>
+              <span class="card-tag">Responsive</span>
+              <span class="card-tag">PC版</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- エントリーボタンパーツ -->
+        <a href="/components/entry-button.html" class="card">
+          <div class="card-header">
+            <div class="card-icon">🎯</div>
+            <span class="card-status ready">Ready</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">エントリーボタン</h3>
+            <p class="card-description">キャンペーンエントリー用のインタラクティブボタンコンポーネント。メルマガ購読オプション付きで、ECMグローバルJSライブラリを使用した公式実装。</p>
+            <div class="card-tags">
+              <span class="card-tag">Interactive</span>
+              <span class="card-tag">Campaign</span>
+              <span class="card-tag">ECM</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- フッターパーツ -->
+        <a href="/components/footer.html" class="card">
+          <div class="card-header">
+            <div class="card-icon">🔻</div>
+            <span class="card-status ready">Ready</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">共通フッター</h3>
+            <p class="card-description">楽天市場のグローバルフッターコンポーネント。カテゴリーナビゲーション、セキュリティ情報、リンク集を含む包括的なフッターデザイン。タブ切り替え機能付き。</p>
+            <div class="card-tags">
+              <span class="card-tag">Navigation</span>
+              <span class="card-tag">Responsive</span>
+              <span class="card-tag">Multi-section</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- キャンペーン詳細パーツ -->
+        <a href="/components/campaign-detail.html" class="card">
+          <div class="card-header">
+            <div class="card-icon">📝</div>
+            <span class="card-status ready">Ready</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">キャンペーンルール詳細</h3>
+            <p class="card-description">キャンペーンのルールや詳細情報を表示するフォームコンポーネント。項目タイトル、タグ選択、注意事項などを含む2カラムレイアウトで読みやすいデザイン。</p>
+            <div class="card-tags">
+              <span class="card-tag">Form</span>
+              <span class="card-tag">Campaign</span>
+              <span class="card-tag">Details</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- クーポンカードパーツ -->
+        <a href="/components/coupon-card.html" class="card">
+          <div class="card-header">
+            <div class="card-icon">🎫</div>
+            <span class="card-status ready">Ready</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">クーポンカード</h3>
+            <p class="card-description">割引クーポンを表示・獲得するためのカードコンポーネント。大きなオレンジの割引額表示、利用条件、獲得ボタンを含む3サイズ展開。</p>
+            <div class="card-tags">
+              <span class="card-tag">Coupon</span>
+              <span class="card-tag">Campaign</span>
+              <span class="card-tag">CTA</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ページセクション -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <div class="section-icon">📄</div>
+          <div class="section-title-content">
+            <h2 class="section-title">ページテンプレート</h2>
+            <p class="section-description">完成したページ実装例</p>
+          </div>
+        </div>
+        <span class="section-badge">0件</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-state-icon">📄</div>
+        <h3 class="empty-state-title">ページはまだありません</h3>
+        <p class="empty-state-description">コンポーネントを組み合わせた完成ページがここに表示されます。現在開発中です。</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">
+      楽天市場 デザインシステム | 
+      <a href="https://www.builder.io/c/docs/projects" class="footer-link" target="_blank">ドキュメント</a>
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽天市場ヘッダー - コンポーネント</title>
+
+  <!-- ECM グローバルCSS -->
+  <link rel="stylesheet" href="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.css">
+
+  <!-- ECM グローバルJS -->
+  <script src="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.js"></script>
+
+  <style>
+    :root {
+      --white: #FFF;
+      --crimson: #BF0000;
+      --gray-717171: #717171;
+      --gray-darker: #333;
+      --gray-900: #333;
+      --gray-d1: #D1D1D1;
+      --black-8: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, -apple-system, Roboto, Helvetica, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .demo-wrapper {
+      max-width: 100%;
+      margin: 0 auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--crimson);
+    }
+
+    /* Header Styles */
+    .rakuten-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--black-8);
+    }
+
+    .header-inner {
+      display: flex;
+      min-width: 100%;
+      padding: 16px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      align-self: stretch;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      align-self: stretch;
+      flex-wrap: wrap;
+    }
+
+    /* Rakuten Logo */
+    .rakuten-logo {
+      flex-shrink: 0;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      height: 40px;
+      align-items: flex-start;
+      flex: 1;
+      min-width: 200px;
+      border-radius: 4px;
+      border: 1px solid var(--crimson);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      min-width: 160px;
+      padding: 0 12px;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      align-self: stretch;
+    }
+
+    .search-input {
+      height: 18px;
+      flex: 1;
+      border: none;
+      outline: none;
+      color: var(--gray-717171);
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 130%;
+    }
+
+    .search-input::placeholder {
+      color: var(--gray-717171);
+    }
+
+    .search-button {
+      display: flex;
+      width: 40px;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      background: var(--crimson);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .search-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Buttons and Member Info */
+    .header-actions-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .icon-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      transition: opacity 0.2s;
+    }
+
+    .icon-button:hover {
+      opacity: 0.7;
+    }
+
+    .icon-button-text {
+      color: var(--gray-900);
+      text-align: center;
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 130%;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: flex;
+      height: 16px;
+      padding: 0 4px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: -8px;
+      top: -4px;
+      border-radius: 16px;
+      background: var(--crimson);
+      min-width: 16px;
+    }
+
+    .badge-number {
+      color: var(--white);
+      text-align: center;
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 130%;
+    }
+
+    /* Point Area */
+    .point-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .point-info {
+      display: flex;
+      padding-top: 2px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .member-info {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .member-name {
+      color: var(--gray-900);
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 130%;
+    }
+
+    .point-amount-wrapper {
+      display: flex;
+      padding: 4px 0;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+    }
+
+    .point-amount {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .point-number {
+      color: var(--gray-900);
+      font-family: Roboto, -apple-system, Helvetica, sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 100%;
+    }
+
+    .point-unit {
+      color: var(--gray-900);
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 130%;
+    }
+
+    .point-multiplier {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .multiplier-value {
+      color: var(--crimson);
+      font-family: Roboto, -apple-system, Helvetica, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 100%;
+    }
+
+    .multiplier-text {
+      color: var(--gray-900);
+      font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 130%;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header-inner {
+        padding: 12px 16px;
+      }
+
+      .header-main {
+        gap: 12px;
+      }
+
+      .icon-buttons {
+        gap: 6px;
+      }
+
+      .icon-button-text {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        order: 3;
+        width: 100%;
+      }
+
+      .header-actions-wrapper {
+        gap: 8px;
+      }
+
+      .point-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="demo-wrapper">
+    <h2 class="demo-title">楽天市場 共通ヘッダー（PC版）</h2>
+    
+    <div class="rakuten-header">
+      <div class="header-inner">
+        <div class="header-main">
+          <!-- Rakuten Logo -->
+          <a href="/" class="rakuten-logo">
+            <svg width="107" height="32" viewBox="0 0 107 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M86.0512 26.8179H21.4L26.5567 32.0001L86.0512 26.8179Z" fill="#BF0000"/>
+              <path d="M27.3946 5.82991V6.60723C26.1699 5.82991 25.1386 5.37646 23.656 5.37646C19.144 5.37646 15.6633 9.52221 15.6633 14.6396C15.6633 19.757 19.0795 23.9028 23.656 23.9028C25.1386 23.9028 26.2344 23.4493 27.3946 22.672V23.4493H31.391V5.82991H27.3946ZM23.5916 19.6923C21.3356 19.6923 19.7241 17.4898 19.7241 14.7044C19.7241 11.919 21.3356 9.71655 23.5916 9.71655C25.8476 9.71655 27.3946 11.919 27.3946 14.7044C27.4591 17.4898 25.8476 19.6923 23.5916 19.6923Z" fill="#BF0000"/>
+              <path d="M59.3012 5.82996V16.1943C59.3012 18.1376 57.9476 19.7571 56.0138 19.7571C54.0801 19.7571 52.7265 18.1376 52.7265 16.1943V5.82996H48.7301V16.1943C48.7301 20.4696 51.6307 23.9028 55.8849 23.9028C57.8187 23.9028 59.3012 22.8016 59.3012 22.8016V23.4494H63.2976V5.82996H59.3012Z" fill="#BF0000"/>
+              <path d="M96.4289 23.5143V13.1499C96.4289 11.2066 97.7825 9.58716 99.7162 9.58716C101.65 9.58716 103.004 11.2066 103.004 13.1499V23.5143H107V13.1499C107 8.8746 104.099 5.44141 99.8451 5.44141C97.9114 5.44141 96.4289 6.54262 96.4289 6.54262V5.83007H92.4325V23.4495H96.4289V23.5143Z" fill="#BF0000"/>
+              <path d="M4.18976 23.5141V16.6477H7.09036L12.1825 23.4493H17.4036L11.2157 15.2226C13.1494 13.8623 14.3741 11.5951 14.3741 9.004C14.3741 4.79347 10.9578 1.42505 6.83253 1.42505H0V23.4493H4.18976V23.5141ZM4.18976 5.63558H6.89699C8.76626 5.63558 10.3133 7.19023 10.3133 9.06877C10.3133 10.9473 8.76626 12.502 6.89699 12.502H4.18976V5.63558Z" fill="#BF0000"/>
+              <path d="M73.9976 19.3036C73.6108 19.5627 73.1596 19.757 72.644 19.757C71.9994 19.757 70.7747 19.2388 70.7747 17.6194V10.0404H74.1909V5.82991H70.7747V1.42505H66.7783V5.82991H64.6512V10.0404H66.7783V17.6194C66.7783 21.5708 69.7434 23.9028 72.7084 23.9028C73.8042 23.9028 75.3512 23.5141 76.5759 22.8016L73.9976 19.3036Z" fill="#BF0000"/>
+              <path d="M41.253 14.1215L48.0855 5.82996H42.5422L37.7078 11.9838V0H33.647V23.5142H37.7078V16.2591L43.6379 23.5142H49.1813L41.253 14.1215Z" fill="#BF0000"/>
+              <path d="M83.2151 5.37646C78.5741 5.37646 75.2867 9.45744 75.2867 14.6396C75.2867 20.0809 79.412 23.9028 83.6018 23.9028C85.7289 23.9028 88.3717 23.1902 90.6277 19.9514L87.0825 17.8785C84.3753 21.8947 79.7988 19.8866 79.2831 15.8056H90.7566C91.7879 9.58699 87.7271 5.37646 83.2151 5.37646ZM86.6958 12.3724H79.541C80.3789 8.29144 85.9223 8.03234 86.6958 12.3724Z" fill="#BF0000"/>
+            </svg>
+          </a>
+
+          <!-- Search Bar -->
+          <div class="search-bar">
+            <div class="search-input-wrapper">
+              <input type="text" class="search-input" placeholder="キーワードから探す">
+            </div>
+            <button class="search-button">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.5551 17.7038L13.963 13.1386C15.1231 11.8546 15.7999 10.2378 15.7999 8.38315C15.7999 4.43614 12.5612 1.25 8.5491 1.25C4.48867 1.25 1.25 4.43614 1.25 8.38315C1.25 12.3302 4.48867 15.5163 8.50076 15.5163C10.1926 15.5163 11.7394 14.9457 12.9962 13.9946L17.6367 18.5598C17.7817 18.7024 17.9267 18.75 18.0718 18.75C18.2168 18.75 18.4101 18.7024 18.5068 18.5598C18.7968 18.3696 18.8452 17.9416 18.5551 17.7038ZM2.55514 8.38315C2.55514 5.14946 5.21375 2.53397 8.50076 2.53397C11.7878 2.53397 14.4947 5.14946 14.4947 8.43071C14.4947 11.6644 11.8361 14.3274 8.50076 14.3274C5.21375 14.2799 2.55514 11.6644 2.55514 8.38315Z" fill="white"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Buttons and Member Info -->
+          <div class="header-actions-wrapper">
+            <!-- Icon Buttons -->
+            <div class="icon-buttons">
+              <!-- Shopping Cart -->
+              <a href="#" class="icon-button">
+                <div style="width: 24px; height: 24px; position: relative;">
+                  <svg style="position: absolute; left: 2px; top: 2px;" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1156 4.16622C20.0032 3.99732 19.7223 3.82842 19.4975 3.82842H4.88842L4.21416 0.619303C4.15797 0.225201 3.82084 0 3.4837 0H0.730454C0.337133 0 0 0.337802 0 0.731903C0 1.12601 0.337133 1.46381 0.730454 1.46381H2.86563L5.95601 16.496C6.0122 16.8338 6.34933 17.1153 6.68646 17.1153H16.4633C16.8566 17.1153 17.1938 16.7775 17.1938 16.3834C17.1938 15.9893 16.8566 15.6515 16.4633 15.6515H7.30454L6.86686 13.5684H16.8004C17.1376 13.5684 17.4185 13.3432 17.5309 13.0617L20.228 4.89812C20.2841 4.61662 20.228 4.33512 20.1156 4.16622ZM16.2386 11.992H6.53926L5.16937 5.34853H18.4299L16.2386 11.992ZM9.27115 19.7051C9.27115 20.437 8.70926 21 7.9788 21C7.24835 21 6.68646 20.437 6.68646 19.7051C6.68646 18.9732 7.24835 18.4102 7.9788 18.4102C8.65307 18.4102 9.27115 19.0295 9.27115 19.7051ZM14.7776 21C15.5081 21 16.07 20.437 16.07 19.7051C16.07 19.0295 15.4519 18.4102 14.7776 18.4102C14.0472 18.4102 13.4853 18.9732 13.4853 19.7051C13.4853 20.437 14.0472 21 14.7776 21Z" fill="#333333"/>
+                  </svg>
+                </div>
+                <span class="icon-button-text">買い物かご</span>
+                <div class="badge">
+                  <span class="badge-number">9</span>
+                </div>
+              </a>
+
+              <!-- Notice -->
+              <a href="#" class="icon-button">
+                <div style="width: 24px; height: 24px; position: relative;">
+                  <svg style="position: absolute; left: 2px; top: 2px;" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 20.5108C3 20.8565 3.17308 21.1445 3.46154 21.2598C3.51923 21.2598 3.63462 21.3174 3.75 21.375C3.98077 21.375 4.15385 21.3174 4.32692 21.1445L8.82692 16.593H18.6923C18.9231 16.593 19.0962 16.5354 19.2692 16.3625C19.4423 16.1897 19.5 16.0168 19.5 15.7864V0.806604C19.5 0.576146 19.4423 0.403302 19.2692 0.230458C19.0962 0.0576146 18.9231 0 18.6923 0H0.807692C0.576923 0 0.403846 0.0576146 0.230769 0.172844C0.0576923 0.345687 0 0.518531 0 0.748989V15.7288C0 15.9592 0.0576923 16.1321 0.230769 16.3049C0.403846 16.4778 0.576923 16.5354 0.807692 16.5354H3V20.5108ZM3.80769 14.9798H1.61538V1.61321H17.8846V14.9798H8.59615C8.36538 14.9798 8.19231 15.0374 8.01923 15.2102L4.61538 18.6095V15.7864C4.61538 15.5559 4.55769 15.3831 4.38461 15.2102C4.21154 15.0374 4.03846 14.9798 3.80769 14.9798ZM8.94232 8.98787V4.09063C8.94232 3.62971 9.28848 3.28402 9.75001 3.28402C10.2116 3.28402 10.5577 3.62971 10.5577 4.09063V8.98787C10.5577 9.44878 10.2116 9.79447 9.75001 9.79447C9.34617 9.79447 8.94232 9.44878 8.94232 8.98787ZM11.0192 12.0414C11.0192 12.7328 10.4423 13.309 9.74999 13.309C9.05768 13.309 8.48076 12.7328 8.48076 12.0414C8.48076 11.3501 9.05768 10.7739 9.74999 10.7739C10.4423 10.7739 11.0192 11.3501 11.0192 12.0414Z" fill="#333333"/>
+                  </svg>
+                </div>
+                <span class="icon-button-text">お知らせ</span>
+                <div class="badge">
+                  <span class="badge-number">99</span>
+                </div>
+              </a>
+
+              <!-- Browsing History -->
+              <a href="#" class="icon-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22.5 11.775C22.3311 6.88125 18.3347 3 13.4939 3C13.4376 3 13.3251 3 13.2688 3C8.65314 3.1125 4.93813 6.7125 4.54412 11.2125L2.85547 8.68125C2.63032 8.2875 2.18002 8.23125 1.84229 8.45625C1.50456 8.68125 1.39199 9.13125 1.61714 9.46875L4.20639 13.4062C4.37525 13.6313 4.6004 13.7438 4.82556 13.7438C4.99442 13.7438 5.107 13.6875 5.21957 13.6312L9.15974 11.0438C9.49746 10.8188 9.61004 10.3688 9.38489 10.0312C9.15973 9.69375 8.70943 9.58125 8.3717 9.80625L6.06389 11.325C6.40162 7.55625 9.49746 4.575 13.3251 4.51875C13.3813 4.51875 13.4376 4.51875 13.4939 4.51875C17.5467 4.51875 20.8676 7.725 20.9802 11.8312C20.9802 11.8875 20.9802 11.9438 20.9802 12C20.9802 16.05 17.7718 19.3687 13.6628 19.4812C13.6065 19.4812 13.5502 19.4812 13.4939 19.4812C10.8484 19.4812 8.48428 18.075 7.13337 15.9938C6.90821 15.6563 6.45791 15.5438 6.12018 15.7688C5.78245 15.9938 5.66988 16.4438 5.89503 16.7812C7.47109 19.3125 10.2855 21 13.4939 21C13.5502 21 13.6628 21 13.7191 21C18.6161 20.8875 22.5 16.8938 22.5 12.0563C22.5 11.8875 22.5 11.8313 22.5 11.775Z" fill="#333333"/>
+                </svg>
+                <span class="icon-button-text">閲覧履歴</span>
+              </a>
+
+              <!-- Bookmark -->
+              <a href="#" class="icon-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.5636 21.4292L11.9881 17.3295L6.35572 21.4292C6.07125 21.6 5.7299 21.6 5.50233 21.4292C5.21786 21.2584 5.10408 20.9167 5.21786 20.5751L7.37979 14.0269L1.80429 9.9272C1.51983 9.75637 1.46293 9.41473 1.51983 9.07309C1.63361 8.78838 1.91808 8.56062 2.20254 8.56062H9.14347L11.3054 1.95552C11.3623 1.72776 11.6468 1.5 11.9881 1.5C12.3295 1.5 12.6139 1.72776 12.6708 2.01246L14.8328 8.61756H21.7737C22.115 8.61756 22.3995 8.84533 22.4564 9.13003C22.5702 9.41473 22.4564 9.75637 22.1719 9.98414L16.5964 14.0269L18.7584 20.632C18.8721 20.9167 18.7584 21.2584 18.4739 21.4861C18.3601 21.6 18.1894 21.6 18.0188 21.6C17.8481 21.6 17.7343 21.5431 17.5636 21.4292ZM8.68833 13.1159C8.97279 13.2867 9.02968 13.6283 8.97279 13.97L7.37979 18.9238L11.5899 15.849C11.8743 15.6782 12.2157 15.6782 12.4433 15.849L16.6533 18.8669L15.0603 13.913C14.9465 13.6283 15.0603 13.2867 15.3448 13.0589L19.5549 9.98414H14.3776C14.0363 9.98414 13.7518 9.75637 13.6949 9.47167L12.1019 4.51785L10.5089 9.47167C10.3951 9.75637 10.1106 9.98414 9.82618 9.98414H4.47825L8.68833 13.1159Z" fill="#333333"/>
+                </svg>
+                <span class="icon-button-text">お気に入り</span>
+              </a>
+
+              <!-- Purchase History -->
+              <a href="#" class="icon-button">
+                <div style="width: 24px; height: 24px; position: relative;">
+                  <svg style="position: absolute; left: 3px; top: 2px;" width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.228658 20.7154C0.342988 20.8862 0.514482 20.9431 0.74314 20.9431V21H18.0069C18.1784 21 18.407 20.8862 18.5213 20.7724C18.6928 20.6585 18.75 20.4878 18.75 20.2602V5.34959C18.75 5.17886 18.6928 4.95122 18.5785 4.8374L14.5198 0.284553C14.3483 0.113821 14.1768 0 13.9482 0H0.74314C0.571646 0 0.342988 0.113821 0.228658 0.227642C0.0571645 0.341463 0 0.512195 0 0.739837V20.2033C0 20.374 0.114329 20.6016 0.228658 20.7154ZM17.2066 19.4634H1.48628V1.47967H13.6052L17.2066 5.57724V19.4634ZM4.3445 7.34148C3.94435 7.34148 3.60136 7.00001 3.60136 6.60164C3.60136 6.20326 3.94435 5.8618 4.3445 5.8618H5.3163C5.71646 5.8618 6.05944 6.20326 6.05944 6.60164C6.05944 7.00001 5.71646 7.34148 5.3163 7.34148H4.3445ZM8.51752 7.34148C8.11737 7.34148 7.77438 7.00001 7.77438 6.60164C7.77438 6.20326 8.11737 5.8618 8.51752 5.8618H13.9482C14.3483 5.8618 14.6913 6.20326 14.6913 6.60164C14.6913 7.00001 14.3483 7.34148 13.9482 7.34148H8.51752ZM7.77438 10.8699C7.77438 11.2683 8.11737 11.6098 8.51752 11.6098H13.9482C14.3483 11.6098 14.6913 11.2683 14.6913 10.8699C14.6913 10.4715 14.3483 10.1301 13.9482 10.1301H8.51752C8.11737 10.1301 7.77438 10.4715 7.77438 10.8699ZM4.3445 11.6098C3.94435 11.6098 3.60136 11.2683 3.60136 10.8699C3.60136 10.4715 3.94435 10.1301 4.3445 10.1301H5.3163C5.71646 10.1301 6.05944 10.4715 6.05944 10.8699C6.05944 11.2683 5.71646 11.6098 5.3163 11.6098H4.3445ZM7.77438 15.0813C7.77438 15.4797 8.11737 15.8211 8.51752 15.8211H13.9482C14.3483 15.8211 14.6913 15.4797 14.6913 15.0813C14.6913 14.6829 14.3483 14.3415 13.9482 14.3415H8.51752C8.11737 14.3415 7.77438 14.6829 7.77438 15.0813ZM4.3445 15.8211C3.94435 15.8211 3.60136 15.4797 3.60136 15.0813C3.60136 14.6829 3.94435 14.3415 4.3445 14.3415H5.3163C5.71646 14.3415 6.05944 14.6829 6.05944 15.0813C6.05944 15.4797 5.71646 15.8211 5.3163 15.8211H4.3445Z" fill="#333333"/>
+                  </svg>
+                </div>
+                <span class="icon-button-text">購入履歴</span>
+              </a>
+
+              <!-- Coupon -->
+              <a href="#" class="icon-button">
+                <div style="width: 24px; height: 24px; position: relative;">
+                  <svg style="position: absolute; left: 2px; top: 3px;" width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21 1.5V7.5C20.6022 7.5 20.2206 7.65804 19.9393 7.93934C19.658 8.22064 19.5 8.60217 19.5 9C19.5 9.39782 19.658 9.77936 19.9393 10.0607C20.2206 10.342 20.6022 10.5 21 10.5V16.5C21 16.8978 20.842 17.2794 20.5607 17.5607C20.2794 17.842 19.8978 18 19.5 18H1.5C1.10218 18 0.720644 17.842 0.43934 17.5607C0.158035 17.2794 0 16.8978 0 16.5V10.5C0.397825 10.5 0.779356 10.342 1.06066 10.0607C1.34196 9.77936 1.5 9.39782 1.5 9C1.5 8.60217 1.34196 8.22064 1.06066 7.93934C0.779356 7.65804 0.397825 7.5 0 7.5V1.5C0 1.10218 0.158035 0.720644 0.43934 0.43934C0.720644 0.158035 1.10218 0 1.5 0H19.5C19.8978 0 20.2794 0.158035 20.5607 0.43934C20.842 0.720644 21 1.10218 21 1.5ZM18.402 7.50033C18.6653 7.0444 19.044 6.66582 19.5 6.40267V1.5H1.5V6.40267C1.95603 6.66582 2.33474 7.0444 2.59804 7.50033C2.86135 7.95627 2.99997 8.47349 2.99997 9C2.99997 9.52651 2.86135 10.0437 2.59804 10.4997C2.33474 10.9556 1.95603 11.3342 1.5 11.5973V16.5H19.5V11.5973C19.044 11.3342 18.6653 10.9556 18.402 10.4997C18.1386 10.0437 18 9.52651 18 9C18 8.47349 18.1386 7.95627 18.402 7.50033ZM6 7.5H7.5V10.5H6V7.5ZM7.5 3H6V6H7.5V3ZM6 12H7.5V15H6V12Z" fill="#333333"/>
+                  </svg>
+                </div>
+                <span class="icon-button-text">クーポン</span>
+              </a>
+            </div>
+
+            <!-- Point Area -->
+            <div class="point-area">
+              <div class="point-info">
+                <div class="member-info">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_234_3516)">
+                      <path d="M6.99999 0.408325C3.32499 0.408325 0.408325 3.32499 0.408325 6.99999C0.408325 7.81666 0.583325 8.57499 0.816658 9.27499L9.27499 0.816658C8.57499 0.524992 7.81666 0.408325 6.99999 0.408325Z" fill="#99B7DD"/>
+                      <path d="M9.27498 0.81665L0.81665 9.27498C1.74998 11.8417 4.14165 13.5917 6.99998 13.5917C10.675 13.5917 13.5917 10.6167 13.5917 6.99998C13.5917 4.14165 11.8417 1.74998 9.27498 0.81665Z" fill="#004BAA"/>
+                      <path d="M7 0.758333C10.4417 0.758333 13.2417 3.55833 13.2417 7C13.2417 10.4417 10.4417 13.2417 7 13.2417C3.55833 13.2417 0.758333 10.4417 0.758333 7C0.758333 3.55833 3.55833 0.758333 7 0.758333ZM7 0C3.15 0 0 3.15 0 7C0 10.85 3.15 14 7 14C10.85 14 14 10.85 14 7C14 3.15 10.85 0 7 0Z" fill="#2F8CC2"/>
+                      <path d="M7.52501 3.32495C8.98334 3.32495 10.0333 4.37495 10.0333 5.83328C10.0333 7.23328 8.92501 8.34162 7.52501 8.34162H6.24167V10.7333H4.84167V3.32495H7.52501ZM7.40834 6.99995C8.05001 6.99995 8.51667 6.47495 8.51667 5.83328C8.51667 5.19162 8.05001 4.66662 7.40834 4.66662H6.24167V6.99995H7.40834Z" fill="white"/>
+                      <path d="M7 1.16667C10.2083 1.16667 12.8333 3.79167 12.8333 7C12.8333 10.2083 10.2083 12.8333 7 12.8333C3.79167 12.8333 1.16667 10.2083 1.16667 7C1.16667 3.79167 3.79167 1.16667 7 1.16667ZM7 0C3.15 0 0 3.15 0 7C0 10.85 3.15 14 7 14C10.85 14 14 10.85 14 7C14 3.15 10.85 0 7 0Z" fill="#2382B4"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_234_3516">
+                        <rect width="14" height="14" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span class="member-name">楽天 市太郎さん</span>
+                </div>
+                <div class="point-amount-wrapper">
+                  <div class="point-amount">
+                    <span class="point-number">9,999</span>
+                    <span class="point-unit">ポイント</span>
+                  </div>
+                </div>
+              </div>
+              <div class="point-multiplier">
+                <span class="multiplier-value">8</span>
+                <span class="multiplier-text">倍</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
