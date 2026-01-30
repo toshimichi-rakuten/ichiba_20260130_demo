@@ -59,7 +59,7 @@
 
     .demo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 32px;
       max-width: 100%;
     }
@@ -75,68 +75,60 @@
       position: relative;
       background: var(--white);
       border: 1px solid var(--border-color);
-      padding: 32px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
       width: 100%;
       max-width: 500px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      overflow: visible;
+    }
+
+    /* Top Section with Amount */
+    .coupon-top {
+      padding: 24px 24px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+      background: var(--white);
       
-      /* Create notches on left and right */
+      /* Create notches on left and right for top section */
       background-image: 
-        radial-gradient(circle at left center, transparent 20px, var(--white) 20px),
-        radial-gradient(circle at right center, transparent 20px, var(--white) 20px);
-      background-size: 51% 100%;
+        radial-gradient(circle at -1px 50%, transparent 10px, var(--white) 10px),
+        radial-gradient(circle at calc(100% + 1px) 50%, transparent 10px, var(--white) 10px);
+      background-size: 100% 100%;
       background-position: left center, right center;
       background-repeat: no-repeat;
     }
 
-    /* Border with notches */
-    .coupon-card::before {
+    /* Notches on the sides */
+    .coupon-card::before,
+    .coupon-card::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: 1px solid var(--border-color);
-      border-radius: 0;
-      pointer-events: none;
-      
-      /* Create notches in border */
-      background-image: 
-        radial-gradient(circle at left center, transparent 20px, transparent 20px),
-        radial-gradient(circle at right center, transparent 20px, transparent 20px);
-      background-size: 51% 100%;
-      background-position: left center, right center;
-      background-repeat: no-repeat;
-      
-      /* Mask to create the notch effect */
-      -webkit-mask-image: 
-        radial-gradient(circle at 0 50%, transparent 20px, black 21px),
-        radial-gradient(circle at 100% 50%, transparent 20px, black 21px);
-      -webkit-mask-size: 51% 100%;
-      -webkit-mask-position: left center, right center;
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-composite: source-in;
-      
-      mask-image: 
-        radial-gradient(circle at 0 50%, transparent 20px, black 21px),
-        radial-gradient(circle at 100% 50%, transparent 20px, black 21px);
-      mask-size: 51% 100%;
-      mask-position: left center, right center;
-      mask-repeat: no-repeat;
-      mask-composite: intersect;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: #f5f5f5;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .coupon-card::before {
+      left: -10px;
+      box-shadow: inset 1px 0 0 var(--border-color);
+    }
+
+    .coupon-card::after {
+      right: -10px;
+      box-shadow: inset -1px 0 0 var(--border-color);
     }
 
     /* Amount Section */
     .coupon-amount {
       display: flex;
       align-items: baseline;
+      justify-content: center;
       gap: 2px;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .coupon-value {
@@ -148,7 +140,7 @@
     }
 
     .coupon-unit {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--orange);
       font-family: "Hiragino Kaku Gothic ProN", -apple-system, Roboto, Helvetica, sans-serif;
@@ -159,14 +151,21 @@
       font-size: 14px;
       color: var(--gray-900);
       text-align: center;
-      margin-bottom: 8px;
       line-height: 1.5;
+    }
+
+    /* Bottom Section with Button */
+    .coupon-bottom {
+      padding: 20px 24px 24px;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     /* Button Section */
     .coupon-button {
       width: 100%;
-      max-width: 100%;
       padding: 12px 24px;
       background: var(--orange);
       color: var(--white);
@@ -204,7 +203,6 @@
       font-size: 12px;
       color: var(--gray-700);
       text-align: center;
-      margin-top: 4px;
     }
 
     /* Responsive */
@@ -222,8 +220,12 @@
         gap: 24px;
       }
 
-      .coupon-card {
-        padding: 28px 20px;
+      .coupon-top {
+        padding: 20px 20px 16px;
+      }
+
+      .coupon-bottom {
+        padding: 16px 20px 20px;
       }
 
       .coupon-value {
@@ -231,7 +233,7 @@
       }
 
       .coupon-unit {
-        font-size: 22px;
+        font-size: 24px;
       }
 
       .coupon-condition {
@@ -241,6 +243,16 @@
       .coupon-button {
         font-size: 14px;
         padding: 11px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .coupon-value {
+        font-size: 48px;
+      }
+
+      .coupon-unit {
+        font-size: 22px;
       }
     }
   </style>
@@ -254,156 +266,174 @@
       <!-- Coupon 1 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">300</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              20,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着20,000回まで
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Coupon 2 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">500</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              30,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着15,000回まで
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Coupon 3 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">1,000</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              50,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着10,000回まで
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Coupon 4 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">300</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              20,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着20,000回まで
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Coupon 5 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">500</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              30,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着15,000回まで
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Coupon 6 -->
       <div class="coupon-wrapper">
         <div class="coupon-card">
-          <div class="coupon-amount">
-            <span class="coupon-value">300</span>
-            <span class="coupon-unit">円OFF</span>
+          <div class="coupon-top">
+            <div class="coupon-amount">
+              <span class="coupon-value">1,000</span>
+              <span class="coupon-unit">円OFF</span>
+            </div>
+
+            <p class="coupon-condition">
+              50,000円(税込)以上のご購入で利用可
+            </p>
           </div>
 
-          <p class="coupon-condition">
-            20,000円(税込)以上のご購入で利用可
-          </p>
+          <div class="coupon-bottom">
+            <button class="coupon-button">
+              <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" fill="currentColor"/>
+              </svg>
+              クーポンを獲得する
+            </button>
 
-          <button class="coupon-button">
-            <svg class="coupon-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2C9 1.44772 9.44772 1 10 1H14C14.5523 1 15 1.44772 15 2V3H19C19.5523 3 20 3.44772 20 4C20 4.55228 19.5523 5 19 5H18V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5H5C4.44772 5 4 4.55228 4 4C4 3.44772 4.44772 3 5 3H9V2Z" fill="currentColor"/>
-              <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"/>
-            </svg>
-            クーポンを獲得する
-          </button>
-
-          <p class="coupon-note">
-            ※先着20,000回まで
-          </p>
+            <p class="coupon-note">
+              ※先着10,000回まで
+            </p>
+          </div>
         </div>
       </div>
     </div>
