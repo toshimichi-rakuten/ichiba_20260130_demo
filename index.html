@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽天市場 デザインシステム - トップページ</title>
+
+  <!-- ECM グローバルCSS -->
+  <link rel="stylesheet" href="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.css">
+
+  <!-- ECM グローバルJS -->
+  <script src="https://r.r10s.jp/com/js/c/ecm/3.28/ecm-3.28.0.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .page-title {
+      font-size: 36px;
+      color: #bf0000;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .page-subtitle {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #bf0000;
+    }
+
+    .section-title {
+      font-size: 28px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .section-badge {
+      background: #bf0000;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 2px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(191, 0, 0, 0.15);
+      border-color: #bf0000;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #bf0000 0%, #ff4444 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      border: 2px dashed #ddd;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    .empty-state-title {
+      font-size: 18px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-description {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 16px;
+      }
+
+      .page-title {
+        font-size: 28px;
+      }
+
+      .section-title {
+        font-size: 22px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <header class="page-header">
+      <h1 class="page-title">楽天市場 デザインシステム</h1>
+      <p class="page-subtitle">コンポーネントライブラリとページ一覧</p>
+    </header>
+
+    <!-- パーツセクション -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">パーツ（コンポーネント）</h2>
+        <span class="section-badge">2件</span>
+      </div>
+
+      <div class="grid">
+        <!-- ヘッダーパーツ -->
+        <a href="/components/header.html" class="card">
+          <div class="card-icon">📋</div>
+          <h3 class="card-title">ヘッダー</h3>
+          <p class="card-description">楽天市場のグローバルヘッダーコンポーネント。検索バー、ナビゲーション、ユーザーアクションを含むレスポンシブデザイン。</p>
+        </a>
+
+        <!-- エントリーボタンパーツ -->
+        <a href="/components/entry-button.html" class="card">
+          <div class="card-icon">🎯</div>
+          <h3 class="card-title">エントリーボタン</h3>
+          <p class="card-description">キャンペーンエントリー用のボタンコンポーネント。メルマガ購読オプション付き。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- ページセクション -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">ページ</h2>
+        <span class="section-badge">0件</span>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-state-icon">📄</div>
+        <h3 class="empty-state-title">ページはまだありません</h3>
+        <p class="empty-state-description">完成したページがここに表示されます</p>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
