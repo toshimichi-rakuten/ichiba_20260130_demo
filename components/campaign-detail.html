@@ -18,12 +18,12 @@
       --crimson-light: #FF4444;
       --gray-darker: #333;
       --gray-900: #333;
-      --gray-700: #555;
-      --gray-500: #999;
-      --gray-300: #ddd;
-      --gray-200: #e9e9e9;
-      --gray-100: #f5f5f5;
-      --gray-50: #fafafa;
+      --gray-700: #4A4A4A;
+      --gray-500: #767676;
+      --gray-300: #DBDBDB;
+      --gray-200: #E5E5E5;
+      --gray-100: #F5F5F5;
+      --gray-50: #FAFAFA;
       --border-color: #D1D1D1;
     }
 
@@ -61,10 +61,11 @@
     /* Campaign Detail Styles */
     .campaign-detail {
       background: var(--white);
-      border-radius: 8px;
+      border-radius: 0;
       overflow: hidden;
-      max-width: 800px;
+      max-width: 100%;
       margin: 0 auto;
+      border: 1px solid var(--border-color);
     }
 
     /* Page Header */
@@ -72,9 +73,9 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 16px 24px;
-      background: var(--gray-50);
-      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E5E5;
     }
 
     .page-header-icon {
@@ -83,18 +84,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--crimson);
-      color: var(--white);
+      background: #E5E5E5;
+      color: #333333;
       border-radius: 50%;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 400;
       flex-shrink: 0;
+      border: none;
     }
 
     .page-header-title {
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--gray-900);
+      color: #333333;
+      line-height: 1.5;
     }
 
     /* Content Container */
@@ -105,68 +108,74 @@
     /* Campaign Title Section */
     .campaign-title-section {
       margin-bottom: 32px;
+      padding-bottom: 0;
     }
 
     .campaign-title-label {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
-      color: var(--crimson);
+      color: #BF0000;
       margin-bottom: 12px;
+      line-height: 1.5;
     }
 
     .campaign-title-description {
-      font-size: 13px;
-      color: var(--gray-700);
-      line-height: 1.7;
+      font-size: 12px;
+      color: #333333;
+      line-height: 1.8;
       margin-bottom: 16px;
     }
 
     .campaign-title-description a {
-      color: var(--crimson);
+      color: #0066CC;
       text-decoration: underline;
     }
 
     .campaign-title-input {
       width: 100%;
-      padding: 12px 16px;
-      font-size: 14px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 13px;
+      border: 1px solid #CCCCCC;
+      border-radius: 3px;
       font-family: inherit;
-      color: var(--gray-900);
-      background: var(--white);
+      color: #333333;
+      background: #FFFFFF;
       transition: border-color 0.2s;
     }
 
     .campaign-title-input:focus {
       outline: none;
-      border-color: var(--crimson);
+      border-color: #0066CC;
     }
 
     .campaign-title-input::placeholder {
-      color: var(--gray-500);
+      color: #999999;
     }
 
     /* Rules Section */
     .rules-section {
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      margin-bottom: 32px;
+      gap: 0;
+      margin-bottom: 40px;
+      border-top: 1px solid #E5E5E5;
     }
 
     .rule-item {
       display: grid;
       grid-template-columns: 180px 1fr;
-      gap: 16px;
+      gap: 32px;
       align-items: start;
+      padding: 20px 0;
+      border-bottom: 1px solid #E5E5E5;
     }
 
     .rule-label {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--gray-900);
-      padding-top: 4px;
+      color: #333333;
+      padding-top: 0;
+      line-height: 1.7;
     }
 
     .rule-content {
@@ -176,28 +185,29 @@
     }
 
     .rule-text {
-      font-size: 14px;
-      color: var(--gray-700);
-      line-height: 1.7;
+      font-size: 13px;
+      color: #333333;
+      line-height: 1.8;
     }
 
     .rule-subtext {
-      font-size: 13px;
-      color: var(--gray-500);
-      line-height: 1.6;
+      font-size: 12px;
+      color: #999999;
+      line-height: 1.8;
     }
 
     /* Tag Section */
     .tag-section {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .tag-group-label {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--gray-900);
+      color: #333333;
+      line-height: 1.7;
     }
 
     .tag-list {
@@ -207,14 +217,15 @@
     }
 
     .tag {
-      padding: 6px 14px;
-      background: var(--white);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 13px;
-      color: var(--gray-700);
+      padding: 4px 12px;
+      background: #FFFFFF;
+      border: 1px solid #CCCCCC;
+      border-radius: 3px;
+      font-size: 12px;
+      color: #333333;
       cursor: pointer;
       transition: all 0.2s;
+      line-height: 1.6;
     }
 
     .tag:hover {
@@ -225,39 +236,42 @@
 
     /* Notes Section */
     .notes-section {
-      background: var(--gray-50);
-      padding: 24px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
+      background: #FAFAFA;
+      padding: 20px 24px;
+      border-radius: 0;
+      border: 1px solid #E5E5E5;
+      margin-top: 8px;
     }
 
     .notes-title {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--gray-900);
-      margin-bottom: 12px;
+      color: #333333;
+      margin-bottom: 10px;
+      line-height: 1.7;
     }
 
     .notes-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       list-style: none;
     }
 
     .notes-list li {
-      font-size: 13px;
-      color: var(--gray-700);
-      line-height: 1.7;
-      padding-left: 16px;
+      font-size: 12px;
+      color: #333333;
+      line-height: 1.8;
+      padding-left: 0;
       position: relative;
     }
 
     .notes-list li::before {
-      content: '・';
+      content: '';
       position: absolute;
       left: 0;
-      color: var(--gray-500);
+      color: #333333;
+      font-weight: 400;
     }
 
     /* Responsive */
@@ -271,16 +285,25 @@
       }
 
       .page-header {
-        padding: 12px 16px;
+        padding: 10px 16px;
       }
 
       .campaign-content {
         padding: 24px 16px;
       }
 
+      .campaign-title-section {
+        margin-bottom: 24px;
+      }
+
       .rule-item {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 12px;
+        padding: 16px 0;
+      }
+
+      .rule-label {
+        padding-bottom: 0;
       }
 
       .notes-section {
